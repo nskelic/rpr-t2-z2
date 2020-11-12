@@ -20,13 +20,10 @@ public class Interval {
         krajPripada = false;
     }
     public boolean isNull() {
-        if (pocetak == kraj == pocetakPripada == krajPripada && pocetak == 0) return true;
-        return false;
+        return pocetak == kraj == pocetakPripada == krajPripada && pocetak == 0;
     }
     public boolean isIn(double tacka) {
-        if((tacka > pocetak && tacka < kraj) || (pocetakPripada && tacka == pocetak) || (krajPripada && tacka == kraj))
-            return true;
-        return false;
+        return (tacka > pocetak && tacka < kraj) || (pocetakPripada && tacka == pocetak) || (krajPripada && tacka == kraj);
     }
     public Interval intersect(Interval interval) {
         if(interval.kraj < this.pocetak || this.kraj < interval.pocetak) return new Interval(); //nema presjeka
@@ -44,8 +41,8 @@ public class Interval {
             if(interval.pocetak > this.pocetak) return new Interval(interval.pocetak, interval.kraj, interval.pocetakPripada, (interval.krajPripada && this.krajPripada));
             else if(this.pocetak > interval.pocetak) return new Interval(this.pocetak, interval.kraj, this.pocetakPripada, (interval.krajPripada && this.krajPripada));
         }
-        double p=0, k=0;
-        boolean pp=false, kp=false;
+        double p, k;
+        boolean pp, kp;
         if(interval.pocetak > this.pocetak) { p = interval.pocetak; pp = interval.pocetakPripada; }
         else { p = this.pocetak; pp = this.pocetakPripada; }
         if(interval.kraj < this.kraj) { k = interval.kraj; kp = interval.krajPripada; }
@@ -84,7 +81,7 @@ public class Interval {
         String vrati = "";
         if(pocetakPripada) vrati = vrati + "[";
         else vrati = vrati + "(";
-        vrati = vrati + String.valueOf(pocetak) + "," + String.valueOf(kraj);
+        vrati = vrati + pocetak + "," + kraj;
         if(krajPripada) vrati = vrati + "]";
         else vrati = vrati + ")";
         return vrati;
